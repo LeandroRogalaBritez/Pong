@@ -1,4 +1,4 @@
-package br.com.leandro.pong;
+package br.com.leandro.pong.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -27,9 +27,9 @@ public class Paddle extends Rectangle {
         this.enemy = enemy;
     }
 
-    public void update() {
-        switch (PongGame.getInstance().getGameState().getMenuOption()) {
-            case ONE_PLAYER: onePlayerUpdate(); break;
+    public void update(Ball ball) {
+        switch (GameState.getInstance().getMenuOption()) {
+            case ONE_PLAYER: onePlayerUpdate(ball); break;
             case TWO_PLAYER: twoPlayerUpdate(); break;
         }
     }
@@ -64,9 +64,9 @@ public class Paddle extends Rectangle {
         }
     }
 
-    private void onePlayerUpdate() {
+    private void onePlayerUpdate(Ball ball) {
         if (enemy) {
-            y += (PongGame.getInstance().getBall().y - y - 3 * 0.1);
+            y += (ball.y - y - 3 * 0.1);
             System.out.println(y);
             if (y + height > Gdx.graphics.getHeight()) {
                 y = Gdx.graphics.getHeight() - height;

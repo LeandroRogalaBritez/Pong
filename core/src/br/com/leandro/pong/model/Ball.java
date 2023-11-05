@@ -1,4 +1,4 @@
-package br.com.leandro.pong;
+package br.com.leandro.pong.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -18,7 +18,7 @@ public class Ball extends Circle {
         reset();
     }
 
-    public void update() {
+    public void update(Paddle leftPaddle, Paddle rightPaddle) {
         x += speedX;
         y += speedY;
 
@@ -26,23 +26,23 @@ public class Ball extends Circle {
             speedY *= -1;
         }
         if (x < 0) {
-            PongGame.getInstance().getRightPaddle().score();
-            PongGame.getInstance().resetGame();
-            PongGame.getInstance().getGameState().setStateOption(StateOptions.PAUSED);
+            rightPaddle.score();
+            resetGame(leftPaddle, rightPaddle);
+            GameState.getInstance().setStateOption(StateOptions.PAUSED);
             return;
         }
 
         if (x > Gdx.graphics.getWidth()) {
-            PongGame.getInstance().getLeftPaddle().score();
-            PongGame.getInstance().resetGame();
-            PongGame.getInstance().getGameState().setStateOption(StateOptions.PAUSED);
+            leftPaddle.score();
+            resetGame(leftPaddle, rightPaddle);
+            GameState.getInstance().setStateOption(StateOptions.PAUSED);
             return;
         }
 
-        if (Intersector.overlaps(this, PongGame.getInstance().getLeftPaddle())) {
+        if (Intersector.overlaps(this, leftPaddle)) {
             speedX *= -1;
         }
-        if (Intersector.overlaps(this, PongGame.getInstance().getRightPaddle())) {
+        if (Intersector.overlaps(this, rightPaddle)) {
             speedX *= -1;
         }
     }
@@ -57,5 +57,11 @@ public class Ball extends Circle {
     public void render(ShapeRenderer shapeRenderer) {
         shapeRenderer.setColor(color);
         shapeRenderer.circle(x, y, radius);
+    }
+
+    private void resetGame(Paddle leftPaddle, Paddle rightPaddle) {
+        reset();
+        leftPaddle.reset();
+        rightPaddle.reset();
     }
 }

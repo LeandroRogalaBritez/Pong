@@ -1,8 +1,11 @@
-package br.com.leandro.pong;
+package br.com.leandro.pong.model;
+
+import br.com.leandro.pong.screen.menu.MenuOption;
 
 public class GameState {
     private StateOptions stateOption;
     private MenuOption menuOption;
+    private static GameState instance;
 
     public GameState() {
         stateOption = StateOptions.MENU;
@@ -23,5 +26,12 @@ public class GameState {
 
     public void setMenuOption(MenuOption menuOption) {
         this.menuOption = menuOption;
+    }
+
+    public static GameState getInstance() {
+        if (instance == null) {
+            instance = new GameState();
+        }
+        return instance;
     }
 }

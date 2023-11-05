@@ -1,4 +1,4 @@
-package br.com.leandro.pong;
+package br.com.leandro.pong.screen.menu;
 
 import com.badlogic.gdx.Gdx;
 
