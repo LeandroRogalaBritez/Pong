@@ -41,11 +41,11 @@ public class MenuScreen implements Screen {
     public void show() {
         this.bitmapFont = new BitmapFont();
         this.spriteBatch = new SpriteBatch();
-        try {
+       /* try {
             connectServer();
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
+        }*/
     }
 
     @Override
