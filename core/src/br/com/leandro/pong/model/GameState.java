@@ -1,11 +1,13 @@
 package br.com.leandro.pong.model;
 
 import br.com.leandro.pong.screen.menu.MenuOption;
+import br.com.leandro.pong.session.Session;
 
 public class GameState {
     private StateOptions stateOption;
     private MenuOption menuOption;
     private static GameState instance;
+    private Session session;
 
     public GameState() {
         stateOption = StateOptions.MENU;
@@ -33,5 +35,13 @@ public class GameState {
             instance = new GameState();
         }
         return instance;
+    }
+
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
     }
 }

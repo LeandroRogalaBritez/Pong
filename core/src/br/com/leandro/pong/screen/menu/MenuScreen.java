@@ -3,6 +3,7 @@ package br.com.leandro.pong.screen.menu;
 import br.com.leandro.pong.model.GameState;
 import br.com.leandro.pong.model.StateOptions;
 import br.com.leandro.pong.screen.game.GameScreen;
+import br.com.leandro.pong.session.Session;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -13,7 +14,14 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class MenuScreen implements Screen {
+    private static List<String> players = new ArrayList<>();
     private Game game;
     private SpriteBatch spriteBatch;
     private BitmapFont bitmapFont;
@@ -24,10 +32,20 @@ public class MenuScreen implements Screen {
         this.game = game;
     }
 
+    private void connectServer() throws IOException {
+        Socket cliente = new Socket("localhost", 1234);
+        GameState.getInstance().setSession(new Session(cliente, "cliente"));
+    }
+
     @Override
     public void show() {
         this.bitmapFont = new BitmapFont();
         this.spriteBatch = new SpriteBatch();
+        try {
+            connectServer();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
