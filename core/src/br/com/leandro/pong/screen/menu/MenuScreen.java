@@ -62,6 +62,7 @@ public class MenuScreen implements Screen {
             }
             bitmapFont.draw(spriteBatch, option.description, option.x, option.y);
         }
+        bitmapFont.draw(spriteBatch, "Players Online: " + players.size(), 10, Gdx.graphics.getHeight() - 10);
         spriteBatch.end();
     }
 
@@ -111,4 +112,13 @@ public class MenuScreen implements Screen {
         bitmapFont.dispose();
         spriteBatch.dispose();
     }
+
+    public static void setNewPlayer(String player) {
+        players.add(player);
+    }
+
+    public static void removePlayer(String player) {
+        players.remove(player);
+    }
+
 }

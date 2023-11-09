@@ -1,4 +1,4 @@
-package br.com.leandro.pong.cmd;
+package network.cmd;
 
 public enum CommandType {
 	CONNECT,

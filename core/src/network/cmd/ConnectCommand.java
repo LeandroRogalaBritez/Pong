@@ -1,5 +1,8 @@
-package br.com.leandro.pong.cmd;
+package network.cmd;
 
+import br.com.leandro.pong.screen.menu.MenuScreen;
+
+import java.net.Socket;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,5 +27,11 @@ public class ConnectCommand extends Command {
 	public void setPlayers(List<String> players) {
 		this.players = players;
 	}
-	
+
+	@Override
+	public void executeClient(Socket client, String player) {
+		for (String p : players) {
+			MenuScreen.setNewPlayer(p);
+		}
+	}
 }

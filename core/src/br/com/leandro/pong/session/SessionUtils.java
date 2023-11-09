@@ -1,6 +1,6 @@
 package br.com.leandro.pong.session;
 
-import br.com.leandro.pong.cmd.Command;
+import network.cmd.Command;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;

@@ -1,4 +1,4 @@
-package br.com.leandro.pong.cmd;
+package network.cmd;
 
 import java.io.Serializable;
 import java.net.Socket;
