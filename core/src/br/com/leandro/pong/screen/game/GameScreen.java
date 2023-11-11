@@ -34,7 +34,7 @@ public class GameScreen implements Screen {
         this.shapeRenderer = new ShapeRenderer();
         this.leftPaddle = new Paddle(0, Gdx.graphics.getHeight() / 2 - 50, 10, 100, 5, Color.WHITE, false);
         this.rightPaddle = new Paddle(Gdx.graphics.getWidth() - 10, Gdx.graphics.getHeight() / 2 - 50, 10, 100, 5, Color.WHITE, true);
-        this.ball = new Ball(10, Color.RED);
+        this.ball = new Ball(10, Color.RED, false, leftPaddle, rightPaddle);
         this.spriteBatch = new SpriteBatch();
         this.bitmapFont = new BitmapFont();
     }
@@ -62,7 +62,7 @@ public class GameScreen implements Screen {
     }
 
     private void renderRunning() {
-        ball.update(leftPaddle, rightPaddle);
+        ball.update();
         leftPaddle.update(ball);
         rightPaddle.update(ball);
 

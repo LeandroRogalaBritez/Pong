@@ -1,6 +1,8 @@
 package br.com.leandro.pong.session;
 
-import br.com.leandro.pong.cmd.Command;
+
+import br.com.leandro.pong.screen.menu.MenuScreen;
+import network.cmd.Command;
 
 import java.io.ObjectInputStream;
 import java.net.Socket;
@@ -20,10 +22,6 @@ public class Session extends Thread {
 				Command comando = (Command) entrada.readObject();
 				System.out.println(comando.toString());
 				comando.executeClient(client, threadName);
-				/*System.out.println("Players conectados: " + Menu.getPlayers());
-				for (String player : Menu.getPlayers()) {
-					System.out.println(player);
-				}*/
 			} catch (Throwable t) {
 				t.printStackTrace();
 				disconnectClient();

@@ -2,12 +2,15 @@ package br.com.leandro.pong.model;
 
 import br.com.leandro.pong.screen.menu.MenuOption;
 import br.com.leandro.pong.session.Session;
+import game.MatchRoom;
 
 public class GameState {
     private StateOptions stateOption;
     private MenuOption menuOption;
     private static GameState instance;
     private Session session;
+    private MatchRoom matchRoom;
+    private String yourPlayer;
 
     public GameState() {
         stateOption = StateOptions.MENU;
@@ -43,5 +46,21 @@ public class GameState {
 
     public void setSession(Session session) {
         this.session = session;
+    }
+
+    public void setMatchRoom(MatchRoom matchRoom) {
+        this.matchRoom = matchRoom;
+    }
+
+    public MatchRoom getMatchRoom() {
+        return matchRoom;
+    }
+
+    public void setYourPlayer(String yourPlayer) {
+        this.yourPlayer = yourPlayer;
+    }
+
+    public String getYourPlayer() {
+        return yourPlayer;
     }
 }
