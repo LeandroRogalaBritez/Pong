@@ -1,6 +1,7 @@
 package network.cmd;
 
 import br.com.leandro.pong.screen.menu.MenuScreen;
+import br.com.leandro.pong.screen.multiplayer.MultiPlayerScreen;
 
 import java.net.Socket;
 import java.util.Arrays;
@@ -31,7 +32,7 @@ public class ConnectCommand extends Command {
 	@Override
 	public void executeClient(Socket client, String player) {
 		for (String p : players) {
-			MenuScreen.setNewPlayer(p);
+			MultiPlayerScreen.setNewPlayer(p);
 		}
 	}
 }

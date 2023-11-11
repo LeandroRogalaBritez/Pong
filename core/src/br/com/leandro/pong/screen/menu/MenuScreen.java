@@ -3,6 +3,7 @@ package br.com.leandro.pong.screen.menu;
 import br.com.leandro.pong.model.GameState;
 import br.com.leandro.pong.model.StateOptions;
 import br.com.leandro.pong.screen.game.GameScreen;
+import br.com.leandro.pong.screen.multiplayer.MultiPlayerScreen;
 import br.com.leandro.pong.session.Session;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -21,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuScreen implements Screen {
-    private static List<String> players = new ArrayList<>();
     private Game game;
     private SpriteBatch spriteBatch;
     private BitmapFont bitmapFont;
@@ -32,20 +32,10 @@ public class MenuScreen implements Screen {
         this.game = game;
     }
 
-    private void connectServer() throws IOException {
-        Socket cliente = new Socket("localhost", 1234);
-        GameState.getInstance().setSession(new Session(cliente, "cliente"));
-    }
-
     @Override
     public void show() {
         this.bitmapFont = new BitmapFont();
         this.spriteBatch = new SpriteBatch();
-        try {
-            connectServer();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
@@ -62,7 +52,6 @@ public class MenuScreen implements Screen {
             }
             bitmapFont.draw(spriteBatch, option.description, option.x, option.y);
         }
-        bitmapFont.draw(spriteBatch, "Players Online: " + players.size(), 10, Gdx.graphics.getHeight() - 10);
         spriteBatch.end();
     }
 
@@ -82,8 +71,13 @@ public class MenuScreen implements Screen {
         }
         GameState.getInstance().setMenuOption(options[optionSelected]);
         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-            GameState.getInstance().setStateOption(StateOptions.PAUSED);
-            game.setScreen(new GameScreen(game));
+            if (options[optionSelected] == MenuOption.TWO_PLAYER) {
+                game.setScreen(new MultiPlayerScreen(game));
+            }
+            if (options[optionSelected] == MenuOption.ONE_PLAYER) {
+                GameState.getInstance().setStateOption(StateOptions.PAUSED);
+                game.setScreen(new GameScreen(game));
+            }
         }
     }
 
@@ -111,14 +105,6 @@ public class MenuScreen implements Screen {
     public void dispose() {
         bitmapFont.dispose();
         spriteBatch.dispose();
-    }
-
-    public static void setNewPlayer(String player) {
-        players.add(player);
-    }
-
-    public static void removePlayer(String player) {
-        players.remove(player);
     }
 
 }
