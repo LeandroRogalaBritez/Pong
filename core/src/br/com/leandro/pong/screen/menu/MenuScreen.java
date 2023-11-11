@@ -1,5 +1,6 @@
 package br.com.leandro.pong.screen.menu;
 
+import br.com.leandro.pong.controller.Controller;
 import br.com.leandro.pong.model.GameState;
 import br.com.leandro.pong.model.StateOptions;
 import br.com.leandro.pong.screen.game.GameScreen;
@@ -36,6 +37,7 @@ public class MenuScreen implements Screen {
     public void show() {
         this.bitmapFont = new BitmapFont();
         this.spriteBatch = new SpriteBatch();
+        new Controller();
     }
 
     @Override
@@ -70,7 +72,7 @@ public class MenuScreen implements Screen {
             }
         }
         GameState.getInstance().setMenuOption(options[optionSelected]);
-        if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+        if (Controller.getInstance().enter()) {
             if (options[optionSelected] == MenuOption.TWO_PLAYER) {
                 game.setScreen(new MultiPlayerScreen(game));
             }

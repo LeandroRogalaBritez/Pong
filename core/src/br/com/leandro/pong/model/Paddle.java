@@ -1,10 +1,13 @@
 package br.com.leandro.pong.model;
 
+import br.com.leandro.pong.session.SessionUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import network.cmd.BallMovedCommand;
+import network.cmd.PaddleMovedCommand;
 
 public class Paddle extends Rectangle {
     private final float initX;
@@ -13,6 +16,9 @@ public class Paddle extends Rectangle {
     private Color color;
     private int score;
     private boolean enemy;
+    private boolean multiplayer;
+    private String player;
+    private String otherPlayer;
 
     public Paddle(float x, float y, float width, float height, float speed, Color color, boolean enemy) {
         this.initX = x;
@@ -25,6 +31,27 @@ public class Paddle extends Rectangle {
         this.color = color;
         this.score = 0;
         this.enemy = enemy;
+        this.multiplayer = false;
+    }
+
+    public Paddle(float x, float y, float width, float height, float speed, Color color, boolean enemy, boolean multiplayer, String player, String otherPlayer) {
+        this.initX = x;
+        this.initY = y;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.speed = speed;
+        this.color = color;
+        this.score = 0;
+        this.enemy = enemy;
+        this.multiplayer = multiplayer;
+        this.player = player;
+        this.otherPlayer = otherPlayer;
+    }
+
+    public String getPlayer() {
+        return player;
     }
 
     public void update(Ball ball) {
@@ -35,6 +62,9 @@ public class Paddle extends Rectangle {
     }
 
     private void twoPlayerUpdate() {
+        if (enemy && multiplayer) {
+            return;
+        }
         if (enemy) {
             if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
                 y = y + speed;
@@ -62,6 +92,14 @@ public class Paddle extends Rectangle {
                 y = 0;
             }
         }
+
+        if (multiplayer) {
+            SessionUtils.sendToOne(GameState.getInstance().getSession().getClient(), new PaddleMovedCommand(y, getOtherPlayer(), getPlayer()));
+        }
+    }
+
+    public String getOtherPlayer() {
+        return otherPlayer;
     }
 
     private void onePlayerUpdate(Ball ball) {
@@ -110,5 +148,9 @@ public class Paddle extends Rectangle {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public void updatePosition(float y) {
+        this.y = y;
     }
 }
