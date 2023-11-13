@@ -65,7 +65,9 @@ public class Ball extends Circle {
             speedX *= -1;
         }
 
-        SessionUtils.sendToOne(GameState.getInstance().getSession().getClient(), new BallMovedCommand(x, y, speedX, speedY, playerOne.getPlayer()));
+        if (multiplayer) {
+            SessionUtils.sendToOne(GameState.getInstance().getSession().getClient(), new BallMovedCommand(x, y, speedX, speedY, playerOne.getPlayer()));
+        }
     }
 
     public void reset() {
