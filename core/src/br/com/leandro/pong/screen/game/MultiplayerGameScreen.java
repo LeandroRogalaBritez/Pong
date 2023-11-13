@@ -3,11 +3,8 @@ package br.com.leandro.pong.screen.game;
 import br.com.leandro.pong.model.Ball;
 import br.com.leandro.pong.model.GameState;
 import br.com.leandro.pong.model.Paddle;
-import br.com.leandro.pong.model.StateOptions;
-import br.com.leandro.pong.screen.menu.MenuScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -90,7 +87,7 @@ public class MultiplayerGameScreen implements Screen {
 
     @Override
     public void hide() {
-
+       dispose();
     }
 
     @Override

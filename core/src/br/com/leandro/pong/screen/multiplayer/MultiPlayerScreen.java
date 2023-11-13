@@ -3,7 +3,6 @@ package br.com.leandro.pong.screen.multiplayer;
 import br.com.leandro.pong.controller.Controller;
 import br.com.leandro.pong.model.GameState;
 import br.com.leandro.pong.model.StateOptions;
-import br.com.leandro.pong.screen.game.GameScreen;
 import br.com.leandro.pong.screen.game.MultiplayerGameScreen;
 import br.com.leandro.pong.session.Session;
 import br.com.leandro.pong.session.SessionUtils;
@@ -12,7 +11,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.ScreenUtils;
 import network.cmd.CreateRoomCommand;
 import network.cmd.SearchRoomCommand;
@@ -155,7 +153,7 @@ public class MultiPlayerScreen implements Screen, InputProcessor {
 
     @Override
     public void hide() {
-
+       dispose();
     }
 
     @Override

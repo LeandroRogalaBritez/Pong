@@ -1,5 +1,6 @@
 package br.com.leandro.pong.model;
 
+import br.com.leandro.pong.screen.menu.MenuOption;
 import br.com.leandro.pong.session.SessionUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -65,7 +66,7 @@ public class Ball extends Circle {
             speedX *= -1;
         }
 
-        if (multiplayer) {
+        if (GameState.getInstance().getMenuOption() == MenuOption.TWO_PLAYER) {
             SessionUtils.sendToOne(GameState.getInstance().getSession().getClient(), new BallMovedCommand(x, y, speedX, speedY, playerOne.getPlayer()));
         }
     }
