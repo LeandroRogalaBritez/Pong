@@ -20,6 +20,7 @@ public class Ball extends Circle {
     private static Ball instance;
     private Paddle playerOne;
     private Paddle playerTwo;
+    private Random random = new Random();
     
     public Ball(float radius, Color color, boolean multiplayer, Paddle playerOne, Paddle playerTwo) {
         this.radius = radius;
@@ -78,8 +79,8 @@ public class Ball extends Circle {
     public void reset() {
         this.x = Gdx.graphics.getWidth() / 2;
         this.y = Gdx.graphics.getHeight() / 2;
-        this.speedX = (new Random().nextInt(2) == 0) ? 5 : -5;
-        this.speedY = (new Random().nextInt(2) == 0) ? 5 : -5;
+        this.speedX = (random.nextInt(2) == 0) ? 5 : -5;
+        this.speedY = (random.nextInt(2) == 0) ? 5 : -5;
     }
 
     public void render(ShapeRenderer shapeRenderer) {
